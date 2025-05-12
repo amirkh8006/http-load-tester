@@ -57,7 +57,7 @@ npm install
 node index.js
 ```
 
-###  Frontend Setup (Express)
+###  Frontend Setup (Angular)
 ```bash
 cd ../frontend
 npm install
