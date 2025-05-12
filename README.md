@@ -17,7 +17,7 @@ hey-load-tester-ui/
 
 ## ✨ Features
 
-- Run `hey` HTTP load tests from a web UI
+- Run [Hey](https://github.com/rakyll/hey) HTTP load tests from a web UI
 - Customize test parameters:
   - Target URL
   - Duration or number of requests
