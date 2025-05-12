@@ -8,10 +8,15 @@ import bootstrap from './main.server';
 const serverDistFolder = dirname(fileURLToPath(import.meta.url));
 const browserDistFolder = resolve(serverDistFolder, '../browser');
 const indexHtml = join(serverDistFolder, 'index.server.html');
+const basicAuth = require('express-basic-auth');
 
 const app = express();
 const commonEngine = new CommonEngine();
 
+app.use(basicAuth({
+  users: { 'admin': 'secret' },
+  challenge: true // important to trigger browser popup
+}));
 /**
  * Example Express Rest API endpoints can be defined here.
  * Uncomment and define endpoints as necessary.
