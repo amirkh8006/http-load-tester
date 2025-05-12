@@ -14,7 +14,7 @@ const app = express();
 const commonEngine = new CommonEngine();
 
 app.use(basicAuth({
-  users: { 'admin': 'secret' },
+  users: { 'admin': '@dmin123456' },
   challenge: true // important to trigger browser popup
 }));
 /**
