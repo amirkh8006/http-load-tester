@@ -49,5 +49,31 @@
     <mat-card *ngIf="error" class="mt-4 text-red-600">
       Error: {{ error }}
     </mat-card>
-  </mat-card>
+</mat-card>
+<br>
+<mat-card style="text-align: center;" class="max-w-xl mx-auto p-4">
+  <h2 style="text-align: center" class="text-xl font-bold mb-4">Ping Test</h2>
+
+  <form [formGroup]="pingForm" (ngSubmit)="startPing()" class="grid grid-cols-1 gap-4">
+    <mat-form-field appearance="fill">
+      <mat-label>Host/IP to Ping</mat-label>
+      <input matInput formControlName="host" placeholder="e.g. 8.8.8.8" required [disabled]="pinging" />
+    </mat-form-field>
+
+    <div class="flex justify-center gap-4">
+      <button *ngIf="!pinging" mat-raised-button color="primary" type="submit" [disabled]="pingForm.invalid">
+        Start Ping
+      </button>
+      <button *ngIf="pinging" mat-raised-button color="warn" type="button" (click)="stopPing()">
+        Stop Ping
+      </button>
+    </div>
+  </form>
+
+  <div *ngIf="pingResults.length > 0" class="mt-4">
+    <h3 class="font-semibold">Ping Results (ms):</h3>
+    <pre>{{ pingResults.join(', ') }}</pre>
+  </div>
+</mat-card>
+
   
