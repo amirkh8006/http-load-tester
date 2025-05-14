@@ -4,7 +4,7 @@ const cors = require('cors');
 const app = express();
 const PORT = 4000;
 
-const heyRoute = require('./routes/hey');
+const heyRoute = require('./hey');
 const pingRoute = require('./routes/ping');
 
 app.use(cors())
