@@ -63,6 +63,13 @@ cd hey-load-tester-ui
 ```
 
 ### 2. package the Electron app:
+
+ - Install backend dependencies
+```bash
+cd backend
+npm install
+```
+
  - build frontend application
 ```bash
 cd frontend
@@ -74,6 +81,8 @@ npm run build
 npm install
 npm run package
 ```
+
+ - Run .exe file in (/dist-electron/hey-load-tester-win32-x64)
 
 ## 🛠 Installation (Local)
 
