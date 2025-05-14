@@ -3,32 +3,32 @@
   
     <form style="text-align: center;" [formGroup]="heyForm" (ngSubmit)="onSubmit()" class="space-y-4">
   
-      <mat-form-field style="padding: 10px;" appearance="fill" class="w-full">
+      <mat-form-field  matTooltip="The URL you want to test (e.g. http://example.com)" matTooltipPosition="above" style="padding: 10px;" appearance="fill" class="w-full">
         <mat-label>Target URL *</mat-label>
         <input matInput placeholder="http://example.com" formControlName="targetUrl" required />
       </mat-form-field>
   
-      <mat-form-field style="padding: 10px;" appearance="fill" class="w-full">
+      <mat-form-field  matTooltip="How long the test should run (e.g. 10s for 10 seconds)" matTooltipPosition="above" style="padding: 10px;" appearance="fill" class="w-full">
         <mat-label>Duration</mat-label>
         <input matInput placeholder="e.g. 10s" formControlName="duration" />
       </mat-form-field>
   
-      <mat-form-field style="padding: 10px;" appearance="fill" class="w-full">
+      <mat-form-field matTooltip="How many users/requests should run concurrently" matTooltipPosition="above" style="padding: 10px;" appearance="fill" class="w-full">
         <mat-label>Concurrency</mat-label>
         <input matInput type="number" formControlName="concurrency" />
       </mat-form-field>
   
-      <mat-form-field style="padding: 10px;" appearance="fill" class="w-full">
+      <mat-form-field matTooltip="Queries Per Second to send during the test"  matTooltipPosition="above" style="padding: 10px;" appearance="fill" class="w-full">
         <mat-label>QPS</mat-label>
         <input matInput type="number" formControlName="qps" />
       </mat-form-field>
   
-      <mat-form-field style="padding: 10px;" appearance="fill" class="w-full">
+      <mat-form-field matTooltip="Proxy to use for the request (e.g. http://user:pass@ip:port)" matTooltipPosition="above" style="padding: 10px;" appearance="fill" class="w-full">
         <mat-label>Proxy</mat-label>
         <input matInput placeholder="http://user:pass@ip:port" formControlName="proxy" />
       </mat-form-field>
 
-      <mat-form-field style="padding: 10px;" appearance="fill" class="w-full">
+      <mat-form-field style="padding: 10px;" matTooltip="Total number of requests to make" matTooltipPosition="above"  appearance="fill" class="w-full">
         <mat-label>Request Numbers</mat-label>
         <input matInput placeholder="Enter request numbers" formControlName="requestNumbers" />
       </mat-form-field>
