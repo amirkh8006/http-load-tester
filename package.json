@@ -1,0 +1,38 @@
+{
+  "name": "hey-load-tester",
+  "version": "1.0.0",
+  "main": "electron/main.js",
+  "scripts": {
+    "build:angular": "cd frontend && ng build --base-href ./",
+    "build": "npm run build:angular",
+    "start": "electron .",
+    "package": "electron-packager . hey-load-tester --platform=win32 --arch=x64 --out=dist-electron --overwrite"
+
+  },
+  "devDependencies": {
+    "electron": "^36.2.0",
+    "electron-builder": "^26.0.12",
+    "electron-packager": "^17.1.2"
+  },
+  "build": {
+    "appId": "com.yourcompany.heytester",
+    "files": [
+      "electron/",
+      "backend/",
+      "frontend/dist/**/*",
+      "package.json"
+    ],
+    "extraResources": [
+      {
+        "from": "backend/hey_linux_amd64",
+        "to": "hey_linux_amd64"
+      }
+    ],
+    "win": {
+      "target": "nsis"
+    },
+    "linux": {
+      "target": "AppImage"
+    }
+  }
+}
