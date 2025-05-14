@@ -99,6 +99,7 @@ node index.js
 ```bash
 cd ../frontend
 npm install
-ng serve
+npm run build
+npm run serve:ssr:heyFront
 ```
 
