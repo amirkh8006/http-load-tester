@@ -16,7 +16,7 @@ function createWindow() {
   });
 
   // Load SSR frontend served at localhost
-  mainWindow.loadURL('http://localhost:4002'); // or whatever your SSR port is
+  mainWindow.loadURL('http://localhost:5000'); // or whatever your SSR port is
 
   mainWindow.on('closed', function () {
     mainWindow = null;

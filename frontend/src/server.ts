@@ -58,7 +58,7 @@ app.get('**', (req, res, next) => {
  * The server listens on the port defined by the `PORT` environment variable, or defaults to 4000.
  */
 if (isMainModule(import.meta.url)) {
-  const port = process.env['PORT'] || 4002;
+  const port = process.env['PORT'] || 5000;
   app.listen(port, () => {
     console.log(`Node Express server listening on http://localhost:${port}`);
   });
