@@ -1,6 +1,6 @@
 # Hey Load Tester UI
 
-A full-stack web application for running HTTP load tests using the [`hey`](https://github.com/rakyll/hey) tool. This app provides a user-friendly Angular interface with an Express.js backend to trigger `hey` load tests on demand.
+A full-stack web application for running HTTP load tests using the [hey](https://github.com/rakyll/hey) tool. This app provides a user-friendly Angular interface with an Express.js backend to trigger `hey` load tests on demand.
 
 ---
 
@@ -34,14 +34,26 @@ hey-load-tester-ui/
 ### Prerequisites
 
 - Node.js (>= 18)
-- Angular CLI (v19+)
-- `hey` binary (Linux/AMD64) placed in the `backend/` folder:
-- ./backend/hey_linux_amd64
 
 
 ---
 
-## 🛠 Installation
+## 🛠 Installation (Electron)
+This project also includes a cross-platform Electron app built on top of the Angular frontend. The Electron version allows you to run the HTTP Load Tester as a standalone desktop application for Windows and Linux.
+
+✅ Features
+ - Seamless integration with the Angular frontend
+
+ - Automatically connects to the backend API for executing load tests
+
+ - Fully functional without needing a web browser
+
+ - Cross-platform support (Windows, Linux)
+
+ - Lightweight and easy to distribute
+
+
+## 📦 Build Instructions
 
 ### 1. Clone the Repository
 
@@ -50,6 +62,22 @@ git clone https://github.com/amirkh8006/http-load-tester.git
 cd hey-load-tester-ui
 ```
 
+### 2. package the Electron app:
+ - build frontend application
+```bash
+cd frontend
+npm run build
+```
+ - package the Electron app:
+```bash
+# In root of project
+npm install
+npm run package
+```
+
+## 🛠 Installation (Local)
+
+
 ###  Backend Setup (Express)
 ```bash
 cd backend
@@ -57,7 +85,7 @@ npm install
 node index.js
 ```
 
-###  Frontend Setup (Angular)
+###  Frontend Setup (Express)
 ```bash
 cd ../frontend
 npm install
