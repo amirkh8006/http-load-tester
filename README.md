@@ -73,6 +73,7 @@ npm install
  - build frontend application
 ```bash
 cd frontend
+npm install
 npm run build
 ```
  - package the Electron app:
