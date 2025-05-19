@@ -46,7 +46,7 @@ router.post("/", (req, res) => {
       });
   }
 
-  const command = `hey_windows_amd64.exe ${args.join(" ")}`;
+  const command = `./hey_linux_amd64 ${args.join(" ")}`;
   console.log(`Running: ${command}`);
 
   exec(command, (error, stdout, stderr) => {

@@ -36,14 +36,14 @@ import { NgChartsModule } from 'ng2-charts';
     MatGridListModule,
     MatTooltipModule,
     MatIconModule,
-    NgChartsModule
+    NgChartsModule,
   ],
   templateUrl: './hey-form.component.html',
 })
 export class HeyFormComponent {
   result: any = null;
   error: string = '';
-  
+
   pingResults: number[] = [];
   pinging = false;
   private pingSub?: Subscription;
@@ -51,8 +51,7 @@ export class HeyFormComponent {
   heyForm: FormGroup;
   pingForm: FormGroup;
 
-
-  resultChart:any = {};
+  resultChart: any = {};
 
   summaryChartData = {
     labels: ['Total', 'Slowest', 'Fastest', 'Average', 'RPS'],
@@ -64,7 +63,7 @@ export class HeyFormComponent {
       },
     ],
   };
-  
+
   latencyChartData = {
     labels: ['0%', '10%', '25%', '50%', '75%', '90%'],
     datasets: [
@@ -77,7 +76,7 @@ export class HeyFormComponent {
       },
     ],
   };
-  
+
   statusChartData = {
     labels: ['200', '400', '500'],
     datasets: [
@@ -89,7 +88,6 @@ export class HeyFormComponent {
     ],
   };
 
-  
   // Summary bar chart
   barOptions: ChartOptions<'bar'> = {
     responsive: true,
@@ -100,7 +98,10 @@ export class HeyFormComponent {
   lineOptions: ChartOptions<'line'> = { responsive: true };
 
   // Status codes pie chart
-  pieOptions: ChartOptions<'bar'> = { responsive: true ,     scales: { y: { beginAtZero: true } }};
+  pieOptions: ChartOptions<'bar'> = {
+    responsive: true,
+    scales: { y: { beginAtZero: true } },
+  };
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.heyForm = this.fb.group({
@@ -114,7 +115,7 @@ export class HeyFormComponent {
     });
 
     this.pingForm = this.fb.group({
-      host: ['']
+      host: [''],
     });
   }
 
@@ -137,7 +138,6 @@ export class HeyFormComponent {
         this.loading = false;
         this.resultChart = res.results || res;
         this.updateCharts();
-
       },
       error: (err) => {
         this.result = null;
@@ -146,7 +146,6 @@ export class HeyFormComponent {
       },
     });
   }
-
 
   updateCharts() {
     // Update summary chart
@@ -167,14 +166,14 @@ export class HeyFormComponent {
       ],
     };
 
-    
-
     this.latencyChartData = {
-      labels: this.resultChart.latencyDistribution.map((l:any) => l.percentile),
+      labels: this.resultChart.latencyDistribution.map(
+        (l: any) => l.percentile
+      ),
       datasets: [
         {
           label: 'Latency (s)',
-          data: this.resultChart.latencyDistribution.map((l:any) => l.time),
+          data: this.resultChart.latencyDistribution.map((l: any) => l.time),
           fill: false,
           borderColor: 'rgba(255, 99, 132, 1)',
           tension: 0.3,
@@ -183,18 +182,15 @@ export class HeyFormComponent {
     };
 
     this.statusChartData = {
-      labels: this.resultChart.statusCodes.map((s:any) => s.statusCode),
+      labels: this.resultChart.statusCodes.map((s: any) => s.statusCode),
       datasets: [
         {
           label: 'Status Code Count',
-          data: this.resultChart.statusCodes.map((s:any) => s.count),
+          data: this.resultChart.statusCodes.map((s: any) => s.count),
           backgroundColor: ['#4caf50', '#f44336', '#ff9800', '#2196f3'],
         },
       ],
     };
-    
-    
-    
   }
 
   startPing() {
@@ -203,9 +199,13 @@ export class HeyFormComponent {
     this.pinging = true;
 
     this.pingSub = interval(1000)
-      .pipe(switchMap(() => this.http.get<any>(`http://localhost:4000/ping?host=${host}`)))
+      .pipe(
+        switchMap(() =>
+          this.http.get<any>(`http://localhost:4000/ping?host=${host}`)
+        )
+      )
       .subscribe({
-        next: (res) => {          
+        next: (res) => {
           if (res.alive) {
             this.pingResults.push(res.time);
           } else {
@@ -218,7 +218,7 @@ export class HeyFormComponent {
         error: (err) => {
           this.pinging = false;
           console.error(err);
-        }
+        },
       });
   }
 
