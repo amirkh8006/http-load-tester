@@ -35,7 +35,7 @@ router.post("/", (req, res) => {
   if (qps) args.push(`-q ${qps}`);
   if (proxy) args.push(`-x ${proxy}`);
   if (outputCsv) args.push(`-o csv`);
-  if (targetUrl) args.push(targetUrl);
+  if (targetUrl) args.push(`"${targetUrl}"`);
 
   if (args.length === 0) {
     return res
