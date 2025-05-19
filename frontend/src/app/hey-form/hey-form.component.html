@@ -40,11 +40,31 @@
         <button mat-raised-button style="margin-bottom: 20px;"  color="primary" type="submit" [disabled]="!heyForm.valid || loading">{{ loading ? 'Running...' : 'Run' }}</button>
       </div>
     </form>
-  
-    <mat-card *ngIf="result" class="mt-6 bg-gray-100 p-4">
-      <h3 style="padding-left: 10px;" class="font-semibold">Result:</h3>
-      <pre style="padding-left: 10px;" class="text-sm overflow-auto">{{ result | json }}</pre>
-    </mat-card>
+
+    <div *ngIf="result">
+
+      <h3 style="text-align: center">Total Request With Status Codes</h3>
+      <canvas baseChart
+        [data]="statusChartData"
+        [options]="pieOptions"
+        [type]="'bar'">
+      </canvas>
+
+      <h3 style="text-align: center">Summary</h3>
+      <canvas baseChart
+        [data]="summaryChartData"
+        [options]="barOptions"
+        [type]="'bar'">
+      </canvas>
+
+      <h3 style="text-align: center">Latency Distribution</h3>
+      <canvas baseChart
+        [data]="latencyChartData"
+        [options]="lineOptions"
+        [type]="'line'">
+      </canvas>
+
+    </div>
   
     <mat-card *ngIf="error" class="mt-4 text-red-600">
       Error: {{ error }}

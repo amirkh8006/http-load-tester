@@ -17,6 +17,8 @@ import { MatGridListModule } from '@angular/material/grid-list';
 import { MatTooltipModule } from '@angular/material/tooltip';
 import { MatIconModule } from '@angular/material/icon';
 import { interval, Subscription, switchMap } from 'rxjs';
+import { ChartDataset, ChartOptions } from 'chart.js';
+import { NgChartsModule } from 'ng2-charts';
 
 @Component({
   selector: 'app-hey-form',
@@ -34,6 +36,7 @@ import { interval, Subscription, switchMap } from 'rxjs';
     MatGridListModule,
     MatTooltipModule,
     MatIconModule,
+    NgChartsModule
   ],
   templateUrl: './hey-form.component.html',
 })
@@ -47,6 +50,57 @@ export class HeyFormComponent {
 
   heyForm: FormGroup;
   pingForm: FormGroup;
+
+
+  resultChart:any = {};
+
+  summaryChartData = {
+    labels: ['Total', 'Slowest', 'Fastest', 'Average', 'RPS'],
+    datasets: [
+      {
+        label: 'Summary Stats',
+        data: [0, 0, 0, 0, 0],
+        backgroundColor: 'rgba(54, 162, 235, 0.6)',
+      },
+    ],
+  };
+  
+  latencyChartData = {
+    labels: ['0%', '10%', '25%', '50%', '75%', '90%'],
+    datasets: [
+      {
+        label: 'Latency (s)',
+        data: [0, 0, 0, 0, 0, 0],
+        fill: false,
+        borderColor: 'rgba(255, 99, 132, 1)',
+        tension: 0.3,
+      },
+    ],
+  };
+  
+  statusChartData = {
+    labels: ['200', '400', '500'],
+    datasets: [
+      {
+        label: 'Status Codes',
+        data: [0, 0, 0],
+        backgroundColor: ['#4caf50', '#ff9800', '#f44336'],
+      },
+    ],
+  };
+
+  
+  // Summary bar chart
+  barOptions: ChartOptions<'bar'> = {
+    responsive: true,
+    scales: { y: { beginAtZero: true } },
+  };
+
+  // Latency distribution line chart
+  lineOptions: ChartOptions<'line'> = { responsive: true };
+
+  // Status codes pie chart
+  pieOptions: ChartOptions<'bar'> = { responsive: true ,     scales: { y: { beginAtZero: true } }};
 
   constructor(private fb: FormBuilder, private http: HttpClient) {
     this.heyForm = this.fb.group({
@@ -81,6 +135,9 @@ export class HeyFormComponent {
         this.result = res.results || res;
         this.error = '';
         this.loading = false;
+        this.resultChart = res.results || res;
+        this.updateCharts();
+
       },
       error: (err) => {
         this.result = null;
@@ -88,6 +145,56 @@ export class HeyFormComponent {
         this.loading = false;
       },
     });
+  }
+
+
+  updateCharts() {
+    // Update summary chart
+    this.summaryChartData = {
+      labels: ['Total', 'Slowest', 'Fastest', 'Average', 'RPS'],
+      datasets: [
+        {
+          label: 'Summary Stats',
+          data: [
+            this.resultChart.summary.total,
+            this.resultChart.summary.slowest,
+            this.resultChart.summary.fastest,
+            this.resultChart.summary.average,
+            this.resultChart.summary.requestsPerSec,
+          ],
+          backgroundColor: 'rgba(54, 162, 235, 0.6)',
+        },
+      ],
+    };
+
+    
+
+    this.latencyChartData = {
+      labels: this.resultChart.latencyDistribution.map((l:any) => l.percentile),
+      datasets: [
+        {
+          label: 'Latency (s)',
+          data: this.resultChart.latencyDistribution.map((l:any) => l.time),
+          fill: false,
+          borderColor: 'rgba(255, 99, 132, 1)',
+          tension: 0.3,
+        },
+      ],
+    };
+
+    this.statusChartData = {
+      labels: this.resultChart.statusCodes.map((s:any) => s.statusCode),
+      datasets: [
+        {
+          label: 'Status Code Count',
+          data: this.resultChart.statusCodes.map((s:any) => s.count),
+          backgroundColor: ['#4caf50', '#f44336', '#ff9800', '#2196f3'],
+        },
+      ],
+    };
+    
+    
+    
   }
 
   startPing() {
